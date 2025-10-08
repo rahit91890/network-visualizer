@@ -1,0 +1,86 @@
+{
+  "name": "network-visualizer",
+  "version": "1.0.0",
+  "description": "A cross-platform network packet analyzer with real-time visualization",
+  "main": "src/main.js",
+  "scripts": {
+    "start": "electron-forge start",
+    "build": "electron-forge make",
+    "package": "electron-forge package",
+    "server": "node server/index.js",
+    "dev": "concurrently \"npm run server\" \"npm run start\""
+  },
+  "keywords": [
+    "network",
+    "visualizer",
+    "packet-capture",
+    "electron",
+    "react"
+  ],
+  "author": "rahit91890",
+  "license": "MIT",
+  "devDependencies": {
+    "@electron-forge/cli": "^7.4.0",
+    "@electron-forge/maker-deb": "^7.4.0",
+    "@electron-forge/maker-rpm": "^7.4.0",
+    "@electron-forge/maker-squirrel": "^7.4.0",
+    "@electron-forge/maker-zip": "^7.4.0",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.4.0",
+    "@electron-forge/plugin-fuses": "^7.4.0",
+    "@electron/fuses": "^1.8.0",
+    "electron": "^31.0.0",
+    "concurrently": "^8.2.0"
+  },
+  "dependencies": {
+    "express": "^4.19.0",
+    "cors": "^2.8.5",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {
+        "asar": true
+      },
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ],
+      "plugins": [
+        {
+          "name": "@electron-forge/plugin-auto-unpack-natives",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/plugin-fuses",
+          "config": {
+            "version": "1.8.0",
+            "resetAdHocDarwinSignature": true,
+            "runAsNode": false,
+            "enableCookieEncryption": true,
+            "enableNodeOptionsEnvironmentVariable": false,
+            "enableNodeCliInspectArguments": false,
+            "enableEmbeddedAsarIntegrityValidation": true,
+            "onlyLoadAppFromAsar": true
+          }
+        }
+      ]
+    }
+  }
+}
