@@ -1,181 +1,185 @@
 # Network Visualizer
 
-## Project Vision & Description
+A cross-platform network packet analyzer with real-time visualization built with Electron, React, and Express.js.
 
-**Network Visualizer** is a Real-Time Network Traffic Visualizer—a powerful, cross-platform desktop application built with Electron and React. It empowers network administrators, security professionals, and IT enthusiasts to monitor, analyze, and visualize network traffic in real-time with an intuitive and modern interface.
+## Project Structure
 
-Our mission is to make network traffic analysis accessible and actionable, providing deep insights into network behavior through beautiful visualizations and intelligent alerting.
-
-## Core Features
-
-### 🔍 Packet Capture
-- Real-time packet sniffing and capture
-- Support for multiple network interfaces
-- Configurable capture filters and rules
-- Deep packet inspection capabilities
-
-### 🗺️ Network Topology Maps
-- Interactive network topology visualization
-- Auto-discovery of connected devices
-- Dynamic updates as network changes
-- Customizable node layouts and themes
-
-### 📊 Protocol Breakdown
-- Detailed protocol analysis (TCP, UDP, HTTP, HTTPS, DNS, etc.)
-- Protocol distribution charts and statistics
-- Application-layer protocol identification
-- Historical protocol usage tracking
-
-### 🚨 Smart Alerts
-- Configurable alert rules and thresholds
-- Anomaly detection for suspicious traffic
-- Real-time notifications for critical events
-- Alert history and reporting
-
-### 📈 Exportable Charts
-- Export visualizations as PNG, SVG, or PDF
-- Generate comprehensive reports
-- Customizable chart types and metrics
-- Time-series data export to CSV/JSON
-
-### 🔌 Plugin Architecture
-- Extensible plugin system for custom analyzers
-- Community-contributed plugins marketplace
-- API for third-party integrations
-- Custom protocol dissectors
-
-### ☁️ Cloud Sync
-- Sync configurations across devices
-- Cloud-based report storage
-- Collaborative team workspaces
-- Secure encrypted data transmission
-
-## Monetization Approach
-
-Network Visualizer follows a dual monetization strategy:
-
-### 📄 Licensing Model
-- **Free Tier**: Basic packet capture and visualization features
-- **Pro License**: One-time purchase for advanced features (topology maps, exportable charts, offline mode)
-- **Enterprise License**: Volume licensing for organizations with priority support
-
-### 💳 Subscription Services
-- **Cloud Sync Subscription**: Monthly/annual plans for cloud storage and multi-device sync
-- **Premium Alerts**: Advanced AI-powered anomaly detection and threat intelligence feeds
-- **Plugin Marketplace**: Revenue sharing with plugin developers
-
-## High-Level Tech Stack
-
-### Frontend & Desktop Framework
-- **Electron**: Cross-platform desktop application framework (Windows, macOS, Linux)
-- **React**: Modern component-based UI library
-- **React Flow**: Interactive network topology visualization
-- **Chart.js / D3.js**: Data visualization and charting
-- **Tailwind CSS**: Utility-first CSS framework for styling
-
-### Backend & Processing
-- **Node.js**: JavaScript runtime for backend logic
-- **Express**: Lightweight API server for plugin architecture
-- **Socket.io**: Real-time bidirectional communication
-
-### Native Libraries & System Integration
-- **libpcap / WinPcap / Npcap**: Low-level packet capture libraries
-- **node-pcap**: Node.js bindings for packet capture
-- **Native Node modules**: C/C++ addons for performance-critical operations
-
-### Data & Storage
-- **SQLite**: Local database for packet metadata and configurations
-- **IndexedDB**: Browser-based storage for UI state
-- **Redis** (optional): Caching layer for high-throughput scenarios
-
-### Cloud & Sync
-- **AWS S3 / Firebase Storage**: Cloud storage for reports and backups
-- **WebSockets**: Real-time cloud sync protocol
-
-## Setup Instructions
-
-### Prerequisites
-
-Before setting up Network Visualizer, ensure you have the following installed:
-
-- **Node.js** (v18.x or higher)
-- **npm** or **yarn** package manager
-- **Git** for version control
-- **libpcap** (Linux/macOS) or **Npcap** (Windows) for packet capture
-
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/rahit91890/network-visualizer.git
-
-# Navigate to project directory
-cd network-visualizer
-
-# Install dependencies
-npm install
-
-# Run in development mode
-npm run dev
-
-# Build for production
-npm run build
-
-# Package for distribution
-npm run package
+```
+network-visualizer/
+├── src/
+│   ├── main.js              # Electron main process
+│   ├── index.html           # HTML entry point
+│   ├── App.js               # Main React application
+│   └── components/
+│       └── Dashboard.js     # Dashboard component
+├── server/
+│   └── index.js             # Express.js backend API
+├── package.json             # Project dependencies and scripts
+├── README.md
+└── LICENSE
 ```
 
-### Platform-Specific Setup
+## Prerequisites
 
-#### Windows
-```bash
-# Install Npcap (required for packet capture)
-# Download from: https://npcap.com/
+Before you begin, ensure you have the following installed:
+- **Node.js** (v14 or higher) and npm
+- Git
 
-# Run with administrator privileges for packet capture
-npm run dev:admin
-```
+## Installation
 
-#### macOS
-```bash
-# Install libpcap (usually pre-installed)
-brew install libpcap
+1. **Clone the repository**
+   ```bash
+   git clone https://github.com/rahit91890/network-visualizer.git
+   cd network-visualizer
+   ```
 
-# Grant permissions for packet capture
-sudo chmod +x ./scripts/setup-mac.sh
-./scripts/setup-mac.sh
-```
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-#### Linux
-```bash
-# Install libpcap
-sudo apt-get install libpcap-dev  # Debian/Ubuntu
-# or
-sudo yum install libpcap-devel    # RedHat/CentOS
+## Usage
 
-# Grant capture capabilities
-sudo setcap cap_net_raw,cap_net_admin=eip $(which node)
-```
+### Development Mode
 
-### Development Commands
+To run the application in development mode:
 
-```bash
-# Start development server
-npm run dev
+1. **Start the backend server** (in one terminal):
+   ```bash
+   npm run server
+   ```
 
-# Run tests
-npm test
+2. **Start the Electron app** (in another terminal):
+   ```bash
+   npm start
+   ```
 
-# Lint code
-npm run lint
+   Or run both concurrently:
+   ```bash
+   npm run dev
+   ```
 
-# Format code
-npm run format
-```
+### Available Scripts
+
+- `npm start` - Start the Electron application
+- `npm run server` - Start the Express.js backend server
+- `npm run dev` - Run both backend and Electron app concurrently
+- `npm run build` - Build the application for production
+- `npm run package` - Package the application for distribution
+
+## Backend API Endpoints
+
+The Express.js server runs on `http://localhost:3001` and provides the following endpoints:
+
+### Status Endpoints
+- `GET /api/status` - Check server status
+- `GET /api/capture/status` - Get packet capture status
+
+### Plugin Endpoints (Placeholder)
+- `GET /api/plugins` - List available plugins
+- `POST /api/plugins/load` - Load a plugin
+
+### Packet Capture Endpoints (Placeholder)
+- `POST /api/capture/start` - Start packet capture
+- `POST /api/capture/stop` - Stop packet capture
+- `GET /api/packets` - Get captured packets
+
+*Note: Plugin and packet capture functionality are placeholders for future implementation.*
+
+## Architecture Overview
+
+### Frontend (Electron + React)
+- **Electron**: Provides the desktop application framework
+- **React**: Handles the UI components and state management
+- **Components**:
+  - `App.js`: Main application component with server connection logic
+  - `Dashboard.js`: Displays network status and packet information
+
+### Backend (Express.js)
+- **Express.js**: RESTful API server for handling network operations
+- **CORS enabled**: Allows frontend to communicate with backend
+- **Port**: 3001 (configurable in `server/index.js`)
+
+## Configuration
+
+### Electron Configuration
+The Electron configuration is managed through Electron Forge in `package.json`. Key settings:
+- **Main entry**: `src/main.js`
+- **Makers**: Configured for Windows (Squirrel), macOS (ZIP), and Linux (DEB/RPM)
+- **Plugins**: Auto-unpack natives and security fuses
+
+### Backend Configuration
+The backend server configuration can be found in `server/index.js`:
+- Default port: 3001
+- CORS: Enabled for all origins (configure for production)
+
+## Building for Production
+
+1. **Build the application**:
+   ```bash
+   npm run build
+   ```
+
+2. **Package for distribution**:
+   ```bash
+   npm run package
+   ```
+
+Built applications will be in the `out/` directory.
+
+## Platform-Specific Notes
+
+### Windows
+- Built packages use Squirrel installer
+- Administrator privileges may be required for network capture (future implementation)
+
+### macOS
+- Built packages are ZIP archives
+- Code signing may be required for distribution
+
+### Linux
+- DEB and RPM packages are created
+- Network capabilities may need to be set for packet capture (future implementation)
+
+## Roadmap
+
+This is the initial boilerplate setup. Future enhancements include:
+
+- [ ] Implement actual packet capture using pcap libraries
+- [ ] Add real-time network visualization
+- [ ] Implement plugin architecture
+- [ ] Add protocol analysis features
+- [ ] Create network topology maps
+- [ ] Implement alert system
+- [ ] Add data export functionality
+- [ ] Build comprehensive test suite
+
+## Development Workflow
+
+1. Make changes to the code
+2. Test locally using `npm run dev`
+3. Commit changes to the main branch
+4. Build and test production package before distribution
+
+## Troubleshooting
+
+### Backend server not connecting
+- Ensure the server is running on port 3001
+- Check for port conflicts
+- Verify firewall settings
+
+### Electron app not starting
+- Ensure all dependencies are installed (`npm install`)
+- Check that `src/main.js` exists
+- Review console for errors
 
 ## Contributing
 
-We welcome contributions! Please see our [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
+Contributions are welcome! Please:
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
 
 ## License
 
@@ -183,10 +187,10 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Support
 
-- 📧 Email: support@network-visualizer.dev
-- 💬 Discord: [Join our community](https://discord.gg/network-visualizer)
-- 🐛 Issues: [GitHub Issues](https://github.com/rahit91890/network-visualizer/issues)
+For issues, questions, or suggestions:
+- Open an issue on [GitHub Issues](https://github.com/rahit91890/network-visualizer/issues)
+- Check existing issues for solutions
 
 ---
 
-**Note**: This is an early-stage project. The initial release focuses on establishing the foundational architecture. Code implementation is coming soon!
+**Current Status**: Boilerplate setup complete. The application includes a basic Electron + React frontend with an Express.js backend. Core network analysis features are in development.
